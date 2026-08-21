@@ -3,15 +3,17 @@
 import { useEffect, useRef, useState } from 'react'
 
 /**
- * Slide-in "Pay by Cash, Get a Discount!" promo — mirrors the boatrentalinmarbella.com
- * popup. Shown only on Marbella boat listings (gated by the caller). Slides in after 4s,
- * dismissible, and stays hidden for 24h via localStorage.
+ * Slide-in "Pay by Wire Transfer or Cash, Get a Discount!" promo — mirrors the
+ * boatrentalinmarbella.com popup. Shown only on Marbella boat listings (gated by the
+ * caller). Slides in after 4s, dismissible, and stays hidden for 24h via localStorage.
  */
 const WHATSAPP = '358400406194' // Marbella boat-hire WhatsApp
 const WA_TEXT = encodeURIComponent(
-  "Hi, I'd like to book a boat in Marbella and pay by cash for the 5% discount",
+  "Hi, I'd like to book a boat in Marbella and pay by wire transfer or cash for the 15% discount",
 )
-const KEY = 'cashPromoDismissed'
+// Bumped with the 5% -> 15% / wire-transfer change so visitors who dismissed the old
+// offer are shown the new one instead of sitting out the remaining 24h window.
+const KEY = 'cashPromoDismissed_v2'
 
 export default function CashDiscountPromo() {
   const [visible, setVisible] = useState(false)
@@ -34,7 +36,7 @@ export default function CashDiscountPromo() {
   return (
     <div
       role="dialog"
-      aria-label="Cash discount offer"
+      aria-label="Wire transfer or cash discount offer"
       aria-hidden={!visible}
       style={{
         position: 'fixed', bottom: 20, right: 20, zIndex: 9998, maxWidth: 340,
@@ -72,11 +74,11 @@ export default function CashDiscountPromo() {
 
         <h3 style={{ fontSize: 22, fontWeight: 800, color: '#f4f4f2', margin: '0 0 6px', lineHeight: 1.15, letterSpacing: '-0.02em' }}>
           Renting a Boat in Marbella?<br />
-          <span style={{ background: 'linear-gradient(135deg,#fde68a 0%,#fbbf24 40%,#74cfe8 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Pay Cash, Get 5% Off!</span>
+          <span style={{ background: 'linear-gradient(135deg,#fde68a 0%,#fbbf24 40%,#74cfe8 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Pay by Wire or Cash — Get 15% Off!</span>
         </h3>
 
         <p style={{ fontSize: 13, color: 'rgba(244,244,242,0.62)', margin: '0 0 16px', lineHeight: 1.5 }}>
-          Booking a boat in <strong style={{ color: '#74cfe8' }}>Marbella</strong>? Skip the card fees — pay your skipper directly in cash and we&apos;ll knock <strong style={{ color: '#fbbf24' }}>5% off</strong> your charter.
+          Booking a boat in <strong style={{ color: '#74cfe8' }}>Marbella</strong>? Skip the card fees — pay by <strong style={{ color: '#fbbf24' }}>bank transfer</strong> or in <strong style={{ color: '#fbbf24' }}>cash</strong> to your skipper and we&apos;ll knock <strong style={{ color: '#fbbf24' }}>15% off</strong> your charter.
         </p>
 
         <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
@@ -89,7 +91,7 @@ export default function CashDiscountPromo() {
         </div>
 
         <p style={{ fontSize: 10, color: 'rgba(244,244,242,0.35)', margin: '10px 0 0', lineHeight: 1.4 }}>
-          * 5% off Marbella charters paid in EUR cash at the marina. Mention &quot;cash discount&quot; when booking.
+          * 15% off Marbella charters paid by bank/wire transfer, or in EUR cash at the marina. Mention &quot;wire or cash discount&quot; when booking.
         </p>
       </div>
     </div>

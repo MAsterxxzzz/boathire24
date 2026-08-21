@@ -334,7 +334,7 @@ export default async function LocationPage({ params }: Props) {
         }}
       />
 
-      {/* Pay-by-cash discount promo — Marbella only */}
+      {/* Wire-transfer / cash discount promo — Marbella only */}
       {loc.city === 'Marbella' && <CashDiscountPromo />}
     </div>
   )

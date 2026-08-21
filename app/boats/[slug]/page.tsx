@@ -555,7 +555,7 @@ export default async function BoatDetailPage({ params }: { params: Promise<{ slu
         }}
       />
 
-      {/* Pay-by-cash discount promo — Marbella fleet only */}
+      {/* Wire-transfer / cash discount promo — Marbella fleet only */}
       {boat.locations?.city === 'Marbella' && <CashDiscountPromo />}
     </div>
   )

@@ -11,6 +11,10 @@ import HeroSearchPill from '@/components/home/HeroSearchPill'
 import { LOCALES, translations, type Locale } from '@/lib/i18n/translations'
 import type { User as SupabaseUser } from '@supabase/supabase-js'
 
+// The three core links stay visible on any normal laptop; the other six need
+// >=1450px of room. The hamburger menu always carries the full nine.
+const PRIMARY_NAV = new Set(['/about', '/search', '/become-a-host'])
+
 const gold = '#74cfe8'
 const text = '#f4f4f2'
 const muted = 'rgba(244,244,242,0.60)'
@@ -100,7 +104,7 @@ export default function SiteNav() {
           </Link>
 
           {/* Desktop nav links */}
-          <nav style={{ display: 'flex', alignItems: 'center', gap: '6px' }} className="hidden-mobile">
+          <nav style={{ display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'nowrap' }} className="hidden-mobile">
             {[
               { href: '/about',         label: translations[locale].nav.about },
               { href: '/search',        label: translations[locale].nav.explore },
@@ -115,6 +119,7 @@ export default function SiteNav() {
               <Link
                 key={l.href}
                 href={l.href}
+                className={PRIMARY_NAV.has(l.href) ? 'nav-primary' : 'nav-secondary'}
                 style={{
                   fontSize: '13.5px', fontWeight: 700, textDecoration: 'none', whiteSpace: 'nowrap',
                   transition: 'background 0.15s, color 0.15s, border-color 0.15s',
@@ -454,16 +459,24 @@ export default function SiteNav() {
 
       {/* Responsive styles injected */}
       <style>{`
-        /* Full 9-item nav + auth cluster needs real room — below this it wrapped
-           mid-word (e.g. "About"/"us") even at 1440px, so the switch to the
-           hamburger menu happens well above the old 768px breakpoint. */
-        @media (min-width: 1450px) {
+        /* The full 9-item nav + auth cluster wrapped mid-word (e.g. "About"/"us")
+           even at 1440px, so the whole bar used to fold into the hamburger below
+           1450px — which hid every link on a normal laptop. Instead: the three
+           core links (About us · Explore boats · List your boat) show from 1024px,
+           and the other six only appear once there is genuine room at 1450px.
+           The hamburger still carries all nine at any width. */
+        @media (min-width: 1024px) {
           .hidden-mobile { display: flex !important; }
           .show-mobile { display: none !important; }
+          .nav-secondary { display: none !important; }
         }
-        @media (max-width: 1449.98px) {
+        @media (max-width: 1023.98px) {
           .hidden-mobile { display: none !important; }
           .show-mobile { display: flex !important; }
+        }
+        /* Must follow the 1024 block: at >=1450px both match and the later wins. */
+        @media (min-width: 1450px) {
+          .nav-secondary { display: inline-flex !important; }
         }
         .hidden-tablet { display: none !important; }
         @media (min-width: 1500px) {

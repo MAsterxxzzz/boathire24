@@ -578,7 +578,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Pay-by-cash discount promo (Marbella deal) — shown on the main page */}
+      {/* Wire-transfer / cash discount promo (Marbella deal) — shown on the main page */}
       <CashDiscountPromo />
     </div>
   )
