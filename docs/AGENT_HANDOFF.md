@@ -24,8 +24,13 @@ Two repos (both on GitHub under `mardo89`, cloned on each computer):
   runs the social-posting + backlink automation. Its cron also `git add -A && push`es —
   see the trap in §4.
 
-Business context: owner **Mardo** (mardo@aiangels.io). **Andra Kiirkivi**
-(andra.kiirkivi@gmail.com) runs host relations / outreach. The strategic goal is
+Business context: owner **Mardo** (mardo@consulting24.co). **Andra Kiirkivi**
+(andra.kiirkivi@gmail.com) runs host relations / outreach. Both are the `is_admin`
+profiles in the DB; the managed host account is `fleet@boathire24.com`.
+**`mardo@aiangels.io` is DEAD** — the mailbox was deleted, so never send to it or expect
+a reply. A dormant `auth.users` row for it still exists (9 test bookings, June 2026,
+8 cancelled + 1 completed); it is not an admin and owns no boats, so it is harmless, but
+it can never receive mail or complete a password reset. The strategic goal is
 **supply-side growth** — get as many boats listed as possible. Site accent = light blue
 `#74cfe8`.
 
